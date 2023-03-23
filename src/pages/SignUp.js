@@ -1,8 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../imgs/logo.png";
 
 export default function SignUp() {
+  const [inputs, setInputs] = useState({
+    mid: "",
+    mpw: "",
+    memail: "",
+    maddress: "",
+  });
+
+  const inputBoxes = (e) => {
+    const { name, value } = e.target;
+    setInputs({ ...inputs, [name]: value });
+    console.log(inputs);
+  };
+
+  const loginSubmit = (e) => {
+    console.log(e.target);
+  };
+
   return (
     <div className="hero is-fullheight" style={{ backgroundColor: "#485fc7" }}>
       <div className="hero-body is-justify-content-center is-align-items-center">
@@ -27,33 +44,47 @@ export default function SignUp() {
             <input
               className="input is-link"
               type="text"
-              name=""
+              name="mid"
               placeholder="아이디"
+              value={inputs.mid}
+              onChange={inputBoxes}
             ></input>
           </div>
           <div className="column">
             <input
               className="input is-link"
               type="password"
+              name="mpw"
               placeholder="비밀번호"
+              value={inputs.mpw}
+              onChange={inputBoxes}
             ></input>
           </div>
           <div className="column">
             <input
               className="input is-link"
-              type="password"
+              type="email"
+              name="memail"
               placeholder="이메일"
+              value={inputs.memail}
+              onChange={inputBoxes}
             ></input>
           </div>
           <div className="column">
             <input
               className="input is-link"
-              type="password"
+              type="text"
+              name="maddress"
               placeholder="주소"
+              value={inputs.maddress}
+              onChange={inputBoxes}
             ></input>
           </div>
           <div className="column">
-            <button className="button is-link is-fullwidth" type="submit">
+            <button
+              className="button is-link is-fullwidth"
+              onClick={loginSubmit}
+            >
               가입하기
             </button>
           </div>
