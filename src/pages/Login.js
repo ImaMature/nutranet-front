@@ -4,9 +4,9 @@ import logo from "../imgs/logo.png";
 
 function Login() {
   return (
-    <div class="hero is-fullheight" style={{ backgroundColor: "#485fc7" }}>
-      <div class="hero-body is-justify-content-center is-align-items-center">
-        <div class="columns is-flex is-flex-direction-column box">
+    <div className="hero is-fullheight" style={{ backgroundColor: "#485fc7" }}>
+      <div className="hero-body is-justify-content-center is-align-items-center">
+        <div className="columns is-flex is-flex-direction-column box">
           <div className="column" style={{ textAlign: "center" }}>
             <Link to="/">
               <img
@@ -20,33 +20,33 @@ function Login() {
               ></img>
             </Link>
           </div>
-          <div class="column">
+          <div className="column">
             <input
-              class="input is-link"
+              className="input is-link"
               type="text"
               placeholder="아이디"
             ></input>
           </div>
-          <div class="column">
+          <div className="column">
             <input
-              class="input is-link"
+              className="input is-link"
               type="password"
               placeholder="비밀번호"
             ></input>
-            <Link to="#" class="is-size-7 has-text-link">
+            <Link to="#" className="is-size-7 has-text-link">
               비밀번호를 잊으셨나요?
             </Link>
           </div>
-          <div class="column">
-            <button class="button is-link is-fullwidth" type="submit">
+          <div className="column">
+            <button className="button is-link is-fullwidth" type="submit">
               로그인
             </button>
           </div>
-          <div class="has-text-centered">
-            <p class="is-size-7">
+          <div className="has-text-centered">
+            <p className="is-size-7">
               {" "}
               계정이 없으신가요?{" "}
-              <Link to="/SignUp" class="has-text-link">
+              <Link to="/SignUp" className="has-text-link">
                 가입하기
               </Link>
             </p>
