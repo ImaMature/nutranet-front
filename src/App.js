@@ -3,6 +3,8 @@ import axios from "axios";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Home from "./components/Home";
+import "bulma/css/bulma.css";
+import "./App.css";
 
 function App() {
   const [data, setData] = useState("");
@@ -17,7 +19,9 @@ function App() {
   return (
     <div>
       <Header />
-      <Home data={data} />
+      <div className="container">
+        <Home data={data} />
+      </div>
       <Footer />
     </div>
   );
