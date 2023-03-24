@@ -1,23 +1,29 @@
+import Axios from "axios";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../imgs/logo.png";
 
 export default function SignUp() {
-  const [inputs, setInputs] = useState({
-    mid: "",
-    mpw: "",
-    memail: "",
-    maddress: "",
-  });
+  const [inputs, setInputs] = useState([]);
+  const [reqResult, setReqReulst] = useState("");
 
   const inputBoxes = (e) => {
     const { name, value } = e.target;
     setInputs({ ...inputs, [name]: value });
-    console.log(inputs);
   };
 
-  const loginSubmit = (e) => {
-    console.log(e.target);
+  const loginSubmit = () => {
+    setInputs({ ...inputs });
+    console.log(inputs);
+    Axios.post("http://localhost:8088/Auth/SignUp", inputs)
+      .then((response) => {
+        setReqReulst("SUCCESS!!");
+        console.log(response);
+      })
+      .catch((error) => {
+        setReqReulst("FAIL!!");
+        console.log(error.data);
+      });
   };
 
   return (
@@ -27,6 +33,7 @@ export default function SignUp() {
           className="columns is-flex is-flex-direction-column box"
           style={{ minWidth: 391 + "px" }}
         >
+          <span>{reqResult}</span>
           <div className="column" style={{ textAlign: "center" }}>
             <Link to="/">
               <img
@@ -46,7 +53,6 @@ export default function SignUp() {
               type="text"
               name="mid"
               placeholder="아이디"
-              value={inputs.mid}
               onChange={inputBoxes}
             ></input>
           </div>
@@ -56,7 +62,6 @@ export default function SignUp() {
               type="password"
               name="mpw"
               placeholder="비밀번호"
-              value={inputs.mpw}
               onChange={inputBoxes}
             ></input>
           </div>
@@ -66,7 +71,6 @@ export default function SignUp() {
               type="email"
               name="memail"
               placeholder="이메일"
-              value={inputs.memail}
               onChange={inputBoxes}
             ></input>
           </div>
@@ -76,7 +80,6 @@ export default function SignUp() {
               type="text"
               name="maddress"
               placeholder="주소"
-              value={inputs.maddress}
               onChange={inputBoxes}
             ></input>
           </div>
