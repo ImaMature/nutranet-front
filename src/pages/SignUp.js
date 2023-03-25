@@ -5,7 +5,6 @@ import logo from "../imgs/logo.png";
 
 export default function SignUp() {
   const [inputs, setInputs] = useState([]);
-  const [reqResult, setReqReulst] = useState("");
 
   const inputBoxes = (e) => {
     const { name, value } = e.target;
@@ -17,11 +16,15 @@ export default function SignUp() {
     console.log(inputs);
     Axios.post("http://localhost:8088/Auth/SignUp", inputs)
       .then((response) => {
-        setReqReulst("SUCCESS!!");
-        console.log(response);
+        console.log(response.data.result);
+        if (response.data.result === true) {
+          alert(response.data.msg);
+          window.location.href = "/";
+        } else {
+          alert(response.data.msg);
+        }
       })
       .catch((error) => {
-        setReqReulst("FAIL!!");
         console.log(error.data);
       });
   };
@@ -33,7 +36,6 @@ export default function SignUp() {
           className="columns is-flex is-flex-direction-column box"
           style={{ minWidth: 391 + "px" }}
         >
-          <span>{reqResult}</span>
           <div className="column" style={{ textAlign: "center" }}>
             <Link to="/">
               <img
@@ -53,6 +55,7 @@ export default function SignUp() {
               type="text"
               name="mid"
               placeholder="아이디"
+              required
               onChange={inputBoxes}
             ></input>
           </div>
@@ -62,6 +65,7 @@ export default function SignUp() {
               type="password"
               name="mpw"
               placeholder="비밀번호"
+              required
               onChange={inputBoxes}
             ></input>
           </div>
@@ -71,6 +75,7 @@ export default function SignUp() {
               type="email"
               name="memail"
               placeholder="이메일"
+              required
               onChange={inputBoxes}
             ></input>
           </div>
@@ -80,6 +85,7 @@ export default function SignUp() {
               type="text"
               name="maddress"
               placeholder="주소"
+              required
               onChange={inputBoxes}
             ></input>
           </div>
