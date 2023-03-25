@@ -13,15 +13,13 @@ export default function SignUp() {
 
   const loginSubmit = () => {
     setInputs({ ...inputs });
-    console.log(inputs);
     Axios.post("http://localhost:8088/Auth/SignUp", inputs)
-      .then((response) => {
-        console.log(response.data.result);
-        if (response.data.result === true) {
-          alert(response.data.msg);
-          window.location.href = "/";
+      .then((result) => {
+        if (result.data.result === true) {
+          alert(result.data.msg);
+          window.location.href = "/Login";
         } else {
-          alert(response.data.msg);
+          alert(result.data.msg);
         }
       })
       .catch((error) => {
