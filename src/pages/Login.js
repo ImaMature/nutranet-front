@@ -1,10 +1,15 @@
 import Axios from "axios";
 import React, { useState } from "react";
+import { useCookies } from "react-cookie";
 import { Link } from "react-router-dom";
 import logo from "../imgs/logo.png";
+import { MemberDataStore } from "../stores";
 
 function Login() {
   const [inputs, setInputs] = useState([]);
+  const [cooks, setCooks] = useCookies();
+
+  const { data, setData } = MemberDataStore();
 
   //각각의 input 창에 값 입력 시
   const handleChange = (e) => {
@@ -20,7 +25,16 @@ function Login() {
     setInputs({ ...inputs });
     Axios.post("http://localhost:8088/Auth/Login", inputs)
       .then((result) => {
-        console.log(JSON.stringify(result.data));
+        if (!result.data.result) {
+          alert("로그인에 실패했습니다.");
+          return;
+        }
+        const { token, data, exprTime } = result.data.data;
+        const expires = new Date();
+        expires.setMilliseconds(expires.getMilliseconds + exprTime);
+        //console.log(JSON.stringify(result.data));
+        setCooks("token", token, { expires });
+        setData(data);
       })
       .catch((error) => {
         console.log(error.data);
@@ -29,6 +43,7 @@ function Login() {
 
   return (
     <div className="hero is-fullheight" style={{ backgroundColor: "#485fc7" }}>
+      {data != null && <p>{data.memail}</p>}
       <div className="hero-body is-justify-content-center is-align-items-center">
         <div className="columns is-flex is-flex-direction-column box">
           <div className="column" style={{ textAlign: "center" }}>
